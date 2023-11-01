@@ -1,6 +1,7 @@
-import { ImagePlus } from "lucide-react";
 import { useState } from "react";
-import CheckInput from "./components/CheckInput";
+import Header from "./components/Header";
+import ImageItem from "./components/ImageItem";
+import ImageUpload from "./components/ImageUpload";
 
 const images = [
   {
@@ -68,65 +69,23 @@ function App() {
 
   return (
     <div className="container mx-auto px-6">
-      <header>
-        <div>
-          <h1 className="text-3xl font-bold  text-purple-600">
-            {selectedItems
-              ? `${selectedItems.length}  is selected`
-              : "Image Galary"}
-          </h1>
-          <CheckInput
-            checked={selectAll}
-            onChange={handleSelectAll} // Handle checkbox state change
-          />
-        </div>
-      </header>
+      <Header
+        selectAll={selectAll}
+        selectedItems={selectedItems}
+        handleSelectAll={handleSelectAll}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {images.map((item) =>
-          item.future ? (
-            <div
-              key={item.id}
-              className="order-first md:col-span-2 md:row-span-2 relative"
-            >
-              {selectedItems.includes(item.id) && (
-                <div className="rounded-lg absolute top-0 left-0 right-0 bottom-0 bg-black opacity-20 z-10"></div>
-              )}
-              <img
-                className="max-w-full max-h-full rounded-lg border-solid border-2 border-purple-500"
-                src={`${item.image}`}
-              />
-              <CheckInput
-                checked={selectedItems.includes(item.id)}
-                onChange={() => handleCheckboxChange(item.id)}
-                className="absolute top-2 left-2"
-              />
-            </div>
-          ) : (
-            <div key={item.id} className="relative">
-              {selectedItems.includes(item.id) && (
-                <div className="rounded-lg absolute top-0 left-0 right-0 bottom-0 bg-black opacity-20 z-10"></div>
-              )}
-              <img
-                className="max-w-full max-h-full rounded-lg border-solid border-2 border-purple-500"
-                src={`${item.image}`}
-              />
-              <CheckInput
-                checked={selectedItems.includes(item.id)}
-                onChange={() => handleCheckboxChange(item.id)}
-                className="absolute top-2 left-2"
-              />
-            </div>
-          )
-        )}
+        {images.map((item) => (
+          <ImageItem
+            key={item.id}
+            item={item}
+            selectedItems={selectedItems}
+            handleCheckboxChange={handleCheckboxChange}
+          />
+        ))}
 
-        <div
-          className="flex flex-col items-center justify-center order-last 
-          rounded-lg border-solid border-2 border-purple-500 max-w-full max-h-full p-4 "
-        >
-          <ImagePlus />
-          <p className="font-bold mt-1">Add Images</p>
-        </div>
+        <ImageUpload />
       </div>
     </div>
   );
