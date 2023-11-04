@@ -63,6 +63,7 @@ function App() {
   const [selectAll, setSelectAll] = useState(false);
 
   const handleCheckboxChange = (itemId) => {
+    console.log(1);
     if (selectedItems.includes(itemId)) {
       // If the item is already in the array, remove it
       setSelectedItems(selectedItems.filter((id) => id !== itemId));
@@ -75,12 +76,26 @@ function App() {
   };
 
   const handleSelectAll = () => {
+    console.log(2);
     setSelectAll(!selectAll); // Toggle "Select All" state
     if (!selectAll) {
       setSelectedItems(items.map((item) => item.id));
     } else {
       setSelectedItems([]);
     }
+  };
+
+  const handleDelete = () => {
+    console.log(selectedItems);
+    console.log(items);
+    const filteredItem = items.filter(
+      (item) => !selectedItems.includes(item.id)
+    ); // Replace `someProperty` with the actual property to check
+
+    console.log(filteredItem);
+    setItems(filteredItem);
+    setSelectedItems([]);
+    setSelectAll(false);
   };
 
   const sensors = useSensors(
@@ -91,6 +106,7 @@ function App() {
   );
 
   function handleDragEnd(event) {
+    console.log(3);
     const { active, over } = event;
     if (active?.id !== over?.id) {
       setItems((prev) => {
@@ -107,6 +123,7 @@ function App() {
         selectAll={selectAll}
         selectedItems={selectedItems}
         handleSelectAll={handleSelectAll}
+        handleDelete={handleDelete}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">

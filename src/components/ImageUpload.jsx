@@ -5,7 +5,7 @@ const ImageUpload = () => {
   return (
     <div
       className="flex flex-col items-center justify-center order-last 
-        rounded-lg border-solid border-2 border-purple-500 max-w-full max-h-full p-4 "
+        rounded-lg border-solid border-2 border-purple-500 max-w-full max-h-full md:min-w-[182px] md:min-h-[182px] p-4 "
     >
       <ImagePlus />
       <p className="font-bold mt-1">Add Images</p>

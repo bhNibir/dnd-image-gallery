@@ -1,7 +1,7 @@
 import CheckInput from "./CheckInput";
 
 // eslint-disable-next-line react/prop-types
-function Header({ selectedItems, selectAll, handleSelectAll }) {
+function Header({ selectedItems, selectAll, handleSelectAll, handleDelete }) {
   return (
     <header>
       <div className="flex flex-row justify-between items-center py-4">
@@ -20,7 +20,9 @@ function Header({ selectedItems, selectAll, handleSelectAll }) {
           </h1>
         </div>
         {selectedItems.length > 0 && (
-          <button className="font-bold text-red-600">Delete Files</button>
+          <button onClick={handleDelete} className="font-bold text-red-600">
+            Delete Files
+          </button>
         )}
       </div>
       <hr className="mb-8" />
