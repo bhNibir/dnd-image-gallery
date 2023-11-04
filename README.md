@@ -1,6 +1,6 @@
 # Simple Image Gallery
 
-This is a simple Image Gallery with Drag and Drop fictionally.
+This is a simple Image Gallery with Drag and Drop functionality.
 
 ### » [Demo Link](https://gleaming-cucurucho-177190.netlify.app/)
 
