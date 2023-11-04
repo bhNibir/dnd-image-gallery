@@ -1,6 +1,3 @@
-import ImageUpload from "../ui/ImageUpload";
-import ImageItem from "./ImageItem";
-
 import {
   DndContext,
   KeyboardSensor,
@@ -11,13 +8,14 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-
 import {
   SortableContext,
   arrayMove,
   rectSwappingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
+import ImageUpload from "../ui/ImageUpload";
+import ImageItem from "./ImageItem";
 
 const ImageGallery = ({
   items,
