@@ -6,7 +6,9 @@ import ImageUpload from "./components/ImageUpload";
 import {
   DndContext,
   KeyboardSensor,
+  MouseSensor,
   PointerSensor,
+  TouchSensor,
   closestCenter,
   useSensor,
   useSensors,
@@ -97,19 +99,38 @@ function App() {
     setIsAllSelect(false);
   };
 
+  const mouseSensor = useSensor(MouseSensor, {
+    // Require the mouse to move by 10 pixels before activating
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    // Press delay of 3s, with tolerance of 10px of movement
+    activationConstraint: {
+      delay: 1000 * 3,
+      tolerance: 10,
+    },
+  });
+
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+
+  const keyboardSensor = useSensor(KeyboardSensor, {
+    coordinateGetter: sortableKeyboardCoordinates,
+  });
+
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 10,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    mouseSensor,
+    touchSensor,
+    pointerSensor,
+    keyboardSensor
   );
 
   function handleDragEnd(event) {
-    console.log(3);
     const { active, over } = event;
     if (active?.id !== over?.id) {
       setItems((prev) => {
