@@ -2,7 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import CheckInput from "./CheckInput";
+import CheckInput from "../ui/CheckInput";
 
 const ImageItem = ({ item, selectedItems, handleCheckboxChange }) => {
   const { id, image } = item;

@@ -1,4 +1,4 @@
-import CheckInput from "./CheckInput";
+import CheckInput from "./ui/CheckInput";
 
 // eslint-disable-next-line react/prop-types
 function Header({ selectedItems, isAllSelect, handleAllSelect, handleDelete }) {
