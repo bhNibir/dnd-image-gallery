@@ -21,39 +21,48 @@ import {
 const initialValue = [
   {
     id: 1,
-    image: "../src/assets/images/image-1.webp",
+    image: new URL("./assets/images/image-1.webp", import.meta.url).href,
   },
-  { id: 2, image: "../src/assets/images/image-2.webp" },
-  { id: 3, image: "../src/assets/images/image-3.webp" },
-  { id: 4, image: "../src/assets/images/image-4.webp" },
+  {
+    id: 2,
+    image: new URL("./assets/images/image-2.webp", import.meta.url).href,
+  },
+  {
+    id: 3,
+    image: new URL("./assets/images/image-3.webp", import.meta.url).href,
+  },
+  {
+    id: 4,
+    image: new URL("./assets/images/image-4.webp", import.meta.url).href,
+  },
   {
     id: 5,
-    image: "../src/assets/images/image-5.webp",
+    image: new URL("./assets/images/image-5.webp", import.meta.url).href,
   },
   {
     id: 6,
-    image: "../src/assets/images/image-6.webp",
+    image: new URL("./assets/images/image-6.webp", import.meta.url).href,
   },
   {
     id: 7,
-    image: "../src/assets/images/image-7.webp",
+    image: new URL("./assets/images/image-7.webp", import.meta.url).href,
   },
   {
     id: 8,
-    image: "../src/assets/images/image-8.webp",
+    image: new URL("./assets/images/image-8.webp", import.meta.url).href,
   },
   {
     id: 9,
-    image: "../src/assets/images/image-9.webp",
+    image: new URL("./assets/images/image-9.webp", import.meta.url).href,
   },
   {
     id: 10,
-    image: "../src/assets/images/image-10.jpeg",
+    image: new URL("./assets/images/image-10.jpeg", import.meta.url).href,
   },
   {
     id: 11,
     future: true,
-    image: "../src/assets/images/image-11.jpeg",
+    image: new URL("./assets/images/image-11.jpeg", import.meta.url).href,
   },
 ];
 
