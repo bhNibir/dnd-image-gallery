@@ -7,7 +7,7 @@ function CheckInput({ checked, onChange, className }) {
       type="checkbox"
       checked={checked}
       onChange={onChange} // Handle checkbox state change
-      className={twMerge("z-20 default:ring-2", className)}
+      className={twMerge("w-5 h-5 border-2 z-20", className)}
     />
   );
 }

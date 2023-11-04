@@ -102,7 +102,7 @@ function App() {
   }
 
   return (
-    <div className="container mx-auto px-6">
+    <div className="container mx-auto px-6 mb-9">
       <Header
         selectAll={selectAll}
         selectedItems={selectedItems}
