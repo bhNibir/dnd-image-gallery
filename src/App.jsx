@@ -60,46 +60,40 @@ const initialValue = [
 function App() {
   const [items, setItems] = useState(initialValue);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectAll, setSelectAll] = useState(false);
+  const [isAllSelect, setIsAllSelect] = useState(false);
 
   const handleCheckboxChange = (itemId) => {
-    console.log(1);
     if (selectedItems.includes(itemId)) {
       // If the item is already in the array, remove it
       setSelectedItems(selectedItems.filter((id) => id !== itemId));
-      !selectedItems.length && setSelectAll(false);
+      !selectedItems.length && setIsAllSelect(false);
     } else {
       // If the item is not in the array, add it
       setSelectedItems([...selectedItems, itemId]);
-      setSelectAll(true);
+      setIsAllSelect(true);
     }
   };
 
-  const handleSelectAll = () => {
-    console.log(2);
-    setSelectAll(!selectAll); // Toggle "Select All" state
-    if (!selectAll) {
-      setSelectedItems(items.map((item) => item.id));
-    } else {
-      setSelectedItems([]);
-    }
+  const handleAllSelect = () => {
+    setSelectedItems([]);
+    setIsAllSelect(false);
   };
 
   const handleDelete = () => {
-    console.log(selectedItems);
-    console.log(items);
     const filteredItem = items.filter(
       (item) => !selectedItems.includes(item.id)
-    ); // Replace `someProperty` with the actual property to check
-
-    console.log(filteredItem);
+    );
     setItems(filteredItem);
     setSelectedItems([]);
-    setSelectAll(false);
+    setIsAllSelect(false);
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -120,9 +114,9 @@ function App() {
   return (
     <div className="container mx-auto px-6 mb-9">
       <Header
-        selectAll={selectAll}
+        isAllSelect={isAllSelect}
         selectedItems={selectedItems}
-        handleSelectAll={handleSelectAll}
+        handleAllSelect={handleAllSelect}
         handleDelete={handleDelete}
       />
 
