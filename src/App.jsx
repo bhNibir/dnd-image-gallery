@@ -3,7 +3,22 @@ import Header from "./components/Header";
 import ImageItem from "./components/ImageItem";
 import ImageUpload from "./components/ImageUpload";
 
-const images = [
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  rectSwappingStrategy,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
+
+const initialValue = [
   {
     id: 1,
     image: "../src/assets/images/image-1.webp",
@@ -43,6 +58,7 @@ const images = [
 ];
 
 function App() {
+  const [items, setItems] = useState(initialValue);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -61,11 +77,29 @@ function App() {
   const handleSelectAll = () => {
     setSelectAll(!selectAll); // Toggle "Select All" state
     if (!selectAll) {
-      setSelectedItems(images.map((item) => item.id));
+      setSelectedItems(items.map((item) => item.id));
     } else {
       setSelectedItems([]);
     }
   };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    if (active?.id !== over?.id) {
+      setItems((prev) => {
+        const activeIndex = prev.findIndex((item) => item.id === active?.id);
+        const overIndex = prev.findIndex((item) => item.id === over?.id);
+        return arrayMove(prev, activeIndex, overIndex);
+      });
+    }
+  }
 
   return (
     <div className="container mx-auto px-6">
@@ -76,14 +110,22 @@ function App() {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {images.map((item) => (
-          <ImageItem
-            key={item.id}
-            item={item}
-            selectedItems={selectedItems}
-            handleCheckboxChange={handleCheckboxChange}
-          />
-        ))}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={items} strategy={rectSwappingStrategy}>
+            {items.map((item) => (
+              <ImageItem
+                key={item.id}
+                item={item}
+                selectedItems={selectedItems}
+                handleCheckboxChange={handleCheckboxChange}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
 
         <ImageUpload />
       </div>

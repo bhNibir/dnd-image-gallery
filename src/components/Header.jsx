@@ -1,4 +1,3 @@
-import React from "react";
 import CheckInput from "./CheckInput";
 
 // eslint-disable-next-line react/prop-types

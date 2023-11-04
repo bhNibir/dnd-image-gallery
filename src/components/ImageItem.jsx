@@ -1,15 +1,39 @@
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import CheckInput from "./CheckInput";
 
 const ImageItem = ({ item, selectedItems, handleCheckboxChange }) => {
-  const { id, future, image } = item;
+  const { id, image } = item;
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    data,
+  } = useSortable({
+    id: id,
+  });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
     <div
       key={id}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
       className={twMerge(
         "relative",
-        future && "order-first md:col-span-2 md:row-span-2 "
+        data.sortable.items[0] == id &&
+          "order-first md:col-span-2 md:row-span-2 "
       )}
     >
       {selectedItems.includes(id) && (
